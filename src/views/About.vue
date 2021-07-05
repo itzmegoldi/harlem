@@ -1,5 +1,14 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <Graph/>
   </div>
 </template>
+<script>
+import Graph from "../components/CardAndGraphs.vue"
+export default {
+  name:"About",
+  components:{
+    Graph
+  }
+}
+</script>
