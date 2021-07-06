@@ -5,10 +5,11 @@
 </template>
 <script>
 import Graph from "../components/CardAndGraphs.vue"
+
 export default {
   name:"About",
   components:{
-    Graph
+    Graph,
   }
 }
 </script>

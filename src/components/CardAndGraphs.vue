@@ -35,27 +35,47 @@
                             </v-list-item-content>
                         </v-list-item>
                         </v-list>
-
                         </v-card>
                     </v-col>
                 </v-row>
+            </v-col>
+            <v-col
+            cols="12"
+            xs="12"
+            sm="4"
+            md="4"
+            >
+                <PieChart></PieChart>
+                
             </v-col>
         </v-row>
     </div>
 </template>
 <script>
+import PieChart from "./PieChart.vue"
+// import PieChart from '@/components/PieChart'
 export default {
     name:"CardAndGraphs",
+    components:{
+        PieChart
+    },
     data(){
         return {
             cardData:[
-            {icon:"mdi-basketball",iconColor:'#D30024',backColor:"rgba(211, 0, 36, 0.12)",
-            title:"Total Campaign"},
-            {icon:"mdi-account-group",iconColor:'#E76F00',backColor:"rgba(231, 111, 0, 0.12)",
-            title:"#Students Reg"},
+            {icon:"mdi-cash-multiple",iconColor:'#067605',backColor:"rgba(6, 118, 5, 0.12)",
+            title:"Total Fund Raised"},
+            {icon:"mdi-charity",iconColor:'#E76F00',backColor:"rgba(231, 111, 0, 0.12)",
+            title:"Number of Donation"},
+
         ],
+        pieData:[
+            {value:30,color:"rgba(237, 109, 17, 0.2)"},
+            {value:40,color:"rgba(0, 133, 255, 0.2)"},
+            {value:30,color:"rgba(6, 118, 5, 0.2)"},
+        ]
+
+        } 
        
-        }
     }
 }
 </script>
