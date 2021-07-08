@@ -7,6 +7,7 @@
         :loading="loader"
         loading-text="Loading... Please wait"
         class="elevation-1"
+        mobile-breakpoint="0"
         :sort-by="[district_info,no_schools,no_campaigns,fund,last_wizfit,sales_rep]"
         >
             <template v-slot:top>
@@ -72,10 +73,8 @@
             <template v-slot:item="row" >
                 <tr>
                   <td class="text-center row-item"  divider: true>
-                  <v-avatar size="40" color="indigo">
-                    <v-icon dark>
-                        mdi-account-circle
-                    </v-icon>
+                    <v-avatar size="40">
+                        <v-img :src="row.item.url"></v-img>
                     </v-avatar>
                   {{row.item.info}}
                   </td>
@@ -87,7 +86,7 @@
                   <td class="text-center row-item" > 
 
 
-                    <v-chip class="mr-2">
+                    <v-chip class="mr-2" @click="viewForm(row.item)">
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <v-icon
@@ -104,8 +103,8 @@
                     </v-tooltip>
                     </v-chip>
 
-                    <v-chip class="mr-2">
-                    <v-tooltip bottom>
+                    <v-chip class="mr-2" @click="editForm(row.item)">
+                    <v-tooltip activator="false" bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <v-icon
                             dark
@@ -123,11 +122,11 @@
                     <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
                         
-                        <v-chip>
-                        <v-icon
+                        <v-chip
                         v-bind="attrs"
-                        v-on="on"
-                        >mdi-dots-horizontal</v-icon>
+                        v-on="on">
+                        <v-icon
+                         color="black">mdi-dots-horizontal</v-icon>
                         </v-chip>
                     </template>
                     <v-list>
@@ -192,7 +191,7 @@ export default {
                 {
                 text: "LastWizfit",
                 value: "no_student",
-                align: "last_wizfit",
+                align: "center",
                 class: "grey lighten-4"
                 },
                 
@@ -209,44 +208,61 @@ export default {
                 class: "grey lighten-4",
                 align: "center"
                 },
-      ],
-      DistrictFormData:{
-          flag:false,
-          loading:false,
-          disabled:false
-      },
+            ],
+                loader:false,
+                DistrictFormData:{
+                    flag:false,
+                    loading:false,
+                    disabled:false,
+                    type:'add',
+                    item:[]
+                },
 
       dummyData:[
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png",state:'Arizona',city:'hello',
+           contact_person:"Prashant Yadav",role:"Admin",email:'prashant.yadav@codenicely.in',
+           mobile:7898123091},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
           {info:'lousiana school district',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav"},
+          saleRep:"Prashant Yadav",url:"basketball.png"},
       ]
         }
     },
     methods:{
         openForm(){
             this.DistrictFormData.flag=true
+            this.DistrictFormData.type='add'
+        },
+        editForm(item){
+            this.DistrictFormData.flag=true
+            this.DistrictFormData.type='edit'
+            this.DistrictFormData.item=item
+        },
+        viewForm(item){
+            this.DistrictFormData.flag=true
+            this.DistrictFormData.disabled=true
+            this.DistrictFormData.item=item
+            this.DistrictFormData.type='view'
         }
     }
 }
