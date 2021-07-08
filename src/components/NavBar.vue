@@ -165,7 +165,7 @@ export default {
 }
 @media (min-width:0px) and (max-width:600px ){
     .maindiv{
-        margin-left:10px
+        margin-left:25px
     }
     .heading{
         margin-left: 10px;

@@ -1,19 +1,9 @@
 <template>
     <div>
-        <v-data-table
-        fixed-header
-        :headers="headers"
-        :items="dummyData"
-        :loading="loader"
-        loading-text="Loading... Please wait"
-        class="elevation-1"
-        mobile-breakpoint="0"
-        :sort-by="[district_info,no_schools,no_campaigns,fund,last_wizfit,sales_rep]"
-        >
-            <template v-slot:top>
-            <br>
+        <v-card class="card-datatable">
+            <v-card-text>
                 <v-row no-gutters>
-                <v-col class="ml-4" cols="12" xs="8" sm="3">
+                <v-col class="ml-2" cols="12" xs="8" sm="3">
                 <v-text-field
                 outlined
                 dense
@@ -24,19 +14,19 @@
                 </v-text-field>
                 </v-col>
                 <v-spacer></v-spacer>
-                <v-col class="d-none d-sm-flex" cols="2">
+                <v-col class="d-none d-sm-flex" cols="4">
                     <v-btn
                     text
                     style="border:1px solid #757575"
+                    class="text-capitalize"
                     >
                     bulk import
                     </v-btn>
-                </v-col>
-                <v-col class="d-none d-sm-flex" cols="2">
                     <v-btn
                     color="#38227A"
                     dark
                     @click="openForm()"
+                    class="text-capitalize"
                     >
                     Add district
                     </v-btn>
@@ -69,7 +59,19 @@
                     </v-menu>
                 </v-col>
                 </v-row>
-            </template>
+            </v-card-text>
+        </v-card>
+        <v-data-table
+        fixed-header
+        :headers="headers"
+        :items="dummyData"
+        :loading="loader"
+        loading-text="Loading... Please wait"
+        class="elevation-1"
+        mobile-breakpoint="0"
+        :sort-by="[district_info,no_schools,no_campaigns,fund,last_wizfit,sales_rep]"
+        >
+
             <template v-slot:item="row" >
                 <tr>
                   <td class="text-center row-item"  divider: true>
@@ -272,5 +274,19 @@ export default {
     border-right:4px solid #38227A;
     border-left:4px solid #38227A;
     border-radius: 4px;
+}
+.card-datatable.v-card{
+    max-height: 70px;
+    margin-bottom: -2px;
+}
+.text-capitalize.v-btn{
+    width: 150px;
+    margin-right: 20px;
+}
+
+@media (min-width:0px) and (max-width:600px ){
+    .card-datatable.v-card{
+        max-height: 150px;
+    }
 }
 </style>

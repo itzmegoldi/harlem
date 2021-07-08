@@ -6,6 +6,16 @@
         max-width="500px"
         max-height="800px"
         >
+        <div class="text-center" v-if="loading" style="min-height:500px;">
+            <v-progress-circular
+            :size="100"
+            :width="10"
+            style="text-align:center;padding-top:20px;padding-bottom:20px;margin-top:200px"
+            color="#7253CF"
+            indeterminate
+            ></v-progress-circular>
+        </div>
+
             <v-card style="background-color:#F2F2F2;" v-if="!loading">
             <v-card-title
             class="headline darken-1"
@@ -66,6 +76,7 @@
                             outlined
                             dense
                             v-model="district_name"
+                            :rules="nameRules"
                             label="District name"
                             color="#7253CF"
                             :disabled="DistrictFormData.disabled">
@@ -76,6 +87,7 @@
                             outlined
                             dense
                             v-model="city"
+                            :rules="cityRules"
                             label="City"
                             color="#7253CF"
                             class="left-input"
@@ -86,6 +98,7 @@
                             <v-autocomplete
                             outlined
                             dense
+                            :rules="stateRules"
                             v-model="state"
                             :items="states"
                             label="State"
@@ -98,6 +111,7 @@
                             <v-text-field
                             outlined
                             dense
+                            :rules="contactPersonRules"
                             v-model="cont_per_name"
                             label="Contact person name"
                             color="#7253CF"
@@ -109,6 +123,7 @@
                             <v-text-field
                             outlined
                             dense
+                            :rules="roleRules"
                             v-model="role"
                             label="Role"
                             color="#7253CF"
@@ -119,6 +134,7 @@
                             <v-text-field
                             outlined
                             dense
+                            :rules="emailRules"
                             v-model="email"
                             label="Email"
                             color="#7253CF" 
@@ -131,14 +147,17 @@
                             outlined
                             dense
                             v-model="mobile"
+                            :rules="mobileRules"
                             label="Mobile"
                             color="#7253CF"
                             class="right-input"
-                            :disabled="DistrictFormData.disabled"></v-text-field>
+                            :disabled="DistrictFormData.disabled">
+                            </v-text-field>
                         </v-col>
                         <v-col cols="5">
                             <v-btn v-if="this.DistrictFormData.type=='add'" 
-                             class="submit-btn" dark color="#38227A">Add district</v-btn>
+                             class="submit-btn" dark color="#38227A"
+                             @click="saveForm">Add district</v-btn>
                             <v-btn v-if="this.DistrictFormData.type=='edit'" 
                             class="submit-btn-edit" dark color="#38227A">save</v-btn>
                         </v-col>
@@ -168,13 +187,36 @@ export default {
             ],
             loading:false,
             previewImage:null,
-            district_name:null,
-            city:null,
-            state:null,
-            cont_per_name:null,
-            role:null,
-            email:null,
-            mobile:null
+            district_name:'',
+            nameRules: [
+                v => !!v || 'Required',
+            ],
+            city:'',
+            cityRules:[
+                v=> !!v || 'Required'
+            ],
+            state:'',
+            stateRules:[
+                v => !!v || 'Required'
+            ],
+            cont_per_name:'',
+            contactPersonRules:[
+                v => !!v || 'Required'
+            ],
+            role:'',
+            roleRules:[
+                v => !!v || 'Required'
+            ],
+            email:'',
+            emailRules:[
+                v => !!v || 'Required',
+                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+            ],
+            mobile:null,
+            mobileRules:[
+                v => !!v || "Required",
+                v => /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(v)
+            ]
 
         }
     },
@@ -184,13 +226,13 @@ export default {
             this.DistrictFormData.type=''
             this.DistrictFormData.item=[]
             this.DistrictFormData.disabled=false
-            this.district_name=null,
+            this.district_name='',
             this.previewImage=null,
-            this.city=null,
-            this.state=null,
-            this.cont_per_name=null,
-            this.role=null,
-            this.email=null,
+            this.city='',
+            this.state='',
+            this.cont_per_name='',
+            this.role='',
+            this.email='',
             this.mobile=null
 
         },
@@ -215,10 +257,15 @@ export default {
             this.role=this.DistrictFormData.item.role
             this.email = this.DistrictFormData.item.email
             this.mobile = this.DistrictFormData.item.mobile
+        },
+        saveForm(){
+            this.loading=true
+            setTimeout(()=>{
+                this.loading=false
+            },2000)
         }
     },
     mounted(){
-        
         if (this.DistrictFormData.type=='view' || this.DistrictFormData.type=='edit'){
             this.editDataOnload()
         }
