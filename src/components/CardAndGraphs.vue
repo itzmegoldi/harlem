@@ -45,19 +45,15 @@
             sm="4"
             md="4"
             >
-                <PieChart></PieChart>
                 
             </v-col>
         </v-row>
     </div>
 </template>
 <script>
-import PieChart from "./PieChart.vue"
-// import PieChart from '@/components/PieChart'
 export default {
     name:"CardAndGraphs",
     components:{
-        PieChart
     },
     data(){
         return {

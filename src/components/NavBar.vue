@@ -53,7 +53,7 @@
               <v-list-item 
               active-class="active-class"
               v-for="(item, i) in navLinks" :key="i"
-              @click="ChangeTab(item.heading,item.select)"
+              @click="ChangeTab(item.heading,item.select,item.url)"
               >
                 <v-icon left>{{ item.icon }}</v-icon>
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -109,7 +109,7 @@ export default {
         { title: "Dashboard", icon: "mdi-view-dashboard", heading:"Internal Dashboard"
         ,select:"Dashboard"},
         { title: "District Management", icon: "mdi-office-building" ,heading:"District Management",
-        select:"District" },
+        select:"District",url:'/district'},
         { title: "School Management", icon: "mdi-school" ,heading:"School Management",
         select:"School" },
         { title: "Campaign Management", icon: "mdi-bullhorn" ,heading:"Campaign Management",
@@ -138,10 +138,12 @@ export default {
        * for changing the tabs and heading
        * param {string} title - navbar heading
        */
-      ChangeTab(heading,select){
+      ChangeTab(heading,select,url){
           this.barTitle = heading
           this.drawer=false
           this.selected=select
+          this.$router.push(url)
+
       }
   }
 };

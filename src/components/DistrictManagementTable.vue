@@ -19,6 +19,7 @@
                     text
                     style="border:1px solid #757575"
                     class="text-capitalize"
+                    @click="route"
                     >
                     bulk import
                     </v-btn>
@@ -265,6 +266,9 @@ export default {
             this.DistrictFormData.disabled=true
             this.DistrictFormData.item=item
             this.DistrictFormData.type='view'
+        },
+        route(){
+            this.$router.push('/upload')
         }
     }
 }
