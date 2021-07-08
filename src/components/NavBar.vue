@@ -81,7 +81,7 @@
               <v-list-item 
               active-class="active-class"
               v-for="(item, i) in navLinks" :key="i"
-              @click="ChangeTab(item.heading,item.select)"
+              @click="ChangeTab(item.heading,item.select,item.url)"
               >
                 <v-icon left>{{ item.icon }}</v-icon>
                 <v-list-item-title>{{ item.title }}</v-list-item-title>

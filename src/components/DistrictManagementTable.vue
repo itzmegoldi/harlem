@@ -50,7 +50,7 @@
                             </v-list-item-title>
                             </v-list-item>
                             <v-list-item
-                            >
+                            @click="route">
                             <v-list-item-title>
                             Bulk Import
                             </v-list-item-title>
