@@ -8,6 +8,7 @@
         :loading="loader"
         loading-text="Loading... Please wait"
         class="elevation-1"
+        mobile-breakpoint="0"
         >
             <template v-slot:item="row" >
                 <tr>
