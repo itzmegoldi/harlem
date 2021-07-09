@@ -215,7 +215,7 @@ export default {
             mobile:null,
             mobileRules:[
                 v => !!v || "Required",
-                v => /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(v)
+                v => /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(v) || 'Mobile Number must be valid'
             ]
 
         }
@@ -307,8 +307,15 @@ border-radius: 10px;
 text-align: center;
 color:#38227A ;
 padding: 4px;
-
 margin-top:20px
+}
+.label-div:hover{
+background-color: #38227A;
+color:white;
+}
+.label-div:active{
+background-color:white;
+color:#38227A;
 }
 img.logo{
 margin-left:40px;
