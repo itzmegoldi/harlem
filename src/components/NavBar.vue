@@ -7,7 +7,7 @@
       
       <v-toolbar-title class="heading">{{barTitle}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn class="d-none d-sm-flex" text><v-icon left>mdi-account</v-icon> Prashant Yadav</v-btn>
+      <v-btn class="d-none d-sm-flex text-capitalize" text><v-icon left>mdi-account</v-icon> Prashant Yadav</v-btn>
       <v-menu offset-y
       >
       <template v-slot:activator="{ on, attrs }">
@@ -111,7 +111,7 @@ export default {
         { title: "District Management", icon: "mdi-office-building" ,heading:"District Management",
         select:"District",url:'/district'},
         { title: "School Management", icon: "mdi-school" ,heading:"School Management",
-        select:"School" },
+        select:"School",url:'/school' },
         { title: "Campaign Management", icon: "mdi-bullhorn" ,heading:"Campaign Management",
         select:"Campaign"},
         { title: "Game Management", icon: "mdi-basketball" ,heading:"Game Management" ,

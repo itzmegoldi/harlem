@@ -2,7 +2,7 @@
     <v-row justify="center">
         <v-dialog
         persistent
-        v-model="DistrictFormData.flag"
+        v-model="SchoolFormData.flag"
         max-width="500px"
         max-height="800px"
         >
@@ -24,12 +24,12 @@
             >
             <div class="d-none d-sm-flex">
             <img src="basketball.png" height="85" width="100">
-            </div> <div v-if="DistrictFormData.type == 'add'" 
-            style="margin-top:-10px;margin-left:20px">Add new district</div>
-            <div v-if="DistrictFormData.type=='edit'" 
-            style="margin-top:-10px;margin-left:20px">Edit district</div>
-            <div v-if="DistrictFormData.type=='view'" 
-            style="margin-top:-10px;margin-left:20px">District details</div>
+            </div> <div v-if="SchoolFormData.type == 'add'" 
+            style="margin-top:-10px;margin-left:20px">Add new school</div>
+            <div v-if="SchoolFormData.type=='edit'" 
+            style="margin-top:-10px;margin-left:20px">Edit school</div>
+            <div v-if="SchoolFormData.type=='view'" 
+            style="margin-top:-10px;margin-left:20px">School details</div>
             <v-spacer></v-spacer>
             <v-icon text color="white" @click="CloseForm"  
             style="cursor:pointer;margin-top:-80px;margin-right:-15px;"
@@ -47,10 +47,10 @@
                             />
                         </v-col>
                         <v-col class="file-input-col" cols="5">
-                        <div v-if="DistrictFormData.type=='add'" class="label-div">
+                        <div v-if="SchoolFormData.type=='add'" class="label-div">
                             <label for="inputId">Upload logo</label>
                         </div>
-                        <div v-if="DistrictFormData.type=='edit'" class="label-div">
+                        <div v-if="SchoolFormData.type=='edit'" class="label-div">
                             <label for="inputId">Change logo</label>
                         </div>
                         <v-file-input
@@ -66,7 +66,7 @@
                             </v-file-input>
                             
                         </v-col>
-                        <p v-if="!previewImage && this.DistrictFormData.type=='add'" 
+                        <p v-if="!previewImage && this.SchoolFormData.type=='add'" 
                         class="logo-des">Please upload a 
                         logo for district,file size should be less than 10 mb</p>
                     </v-row>
@@ -75,12 +75,56 @@
                             <v-text-field
                             outlined
                             dense
-                            v-model="district_name"
+                            v-model="school_name"
                             :rules="nameRules"
-                            label="District name"
+                            label="School name"
                             color="#7253CF"
-                            :disabled="DistrictFormData.disabled">
+                            :disabled="SchoolFormData.disabled">
                             </v-text-field>
+                        </v-col>
+                        <v-col cols="5">
+                            <v-text-field
+                            outlined
+                            dense
+                            v-model="cont_per_name"
+                            label="Contact person name"
+                            color="#7253CF"
+                            class="left-input"
+                            :disabled="SchoolFormData.disabled">
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="5">
+                            <v-text-field
+                            outlined
+                            dense
+                            v-model="designation"
+                            label="Designation"
+                            color="#7253CF"
+                            class="right-input"
+                            :disabled="SchoolFormData.disabled"></v-text-field>
+                        </v-col>      
+                        <v-col cols="5">
+                            <v-text-field
+                            outlined
+                            dense
+                            :rules="contactPersonRules"
+                            v-model="mobile"
+                            label="Contact person phone"
+                            color="#7253CF"
+                            class="left-input"
+                            :disabled="SchoolFormData.disabled">
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="5">
+                            <v-text-field
+                            outlined
+                            dense
+                            :rules="roleRules"
+                            v-model="email"
+                            label="Contact person email"
+                            color="#7253CF"
+                            class="right-input"
+                            :disabled="SchoolFormData.disabled"></v-text-field>
                         </v-col>
                         <v-col  cols="5">
                             <v-text-field
@@ -91,7 +135,7 @@
                             label="City"
                             color="#7253CF"
                             class="left-input"
-                            :disabled="DistrictFormData.disabled">
+                            :disabled="SchoolFormData.disabled">
                             </v-text-field>
                         </v-col>
                         <v-col cols="5">
@@ -104,61 +148,51 @@
                             label="State"
                             color="#7253CF"
                             class="right-input"
-                            :disabled="DistrictFormData.disabled">
+                            :disabled="SchoolFormData.disabled">
+                            </v-autocomplete >
+                        </v-col>
+                        <v-col cols="10">
+                            <v-textarea
+                            outlined
+                            dense
+                            v-model="shipping_address"
+                            :rules="nameRules"
+                            label="Shipping Address"
+                            color="#7253CF"
+                            class="shipping-input"
+                            :disabled="SchoolFormData.disabled">
+                            </v-textarea>
+                        </v-col>
+                        <v-col  cols="5">
+                            <v-text-field
+                            outlined
+                            dense
+                            v-model="lead_group"
+                            
+                            label="Lead Group"
+                            color="#7253CF"
+                            class="left-input"
+                            :disabled="SchoolFormData.disabled">
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="5">
+                            <v-autocomplete
+                            outlined
+                            dense
+                        
+                            v-model="sales_rep"
+                            
+                            label="sales REP"
+                            color="#7253CF"
+                            class="right-input"
+                            :disabled="SchoolFormData.disabled">
                             </v-autocomplete >
                         </v-col>
                         <v-col cols="5">
-                            <v-text-field
-                            outlined
-                            dense
-                            :rules="contactPersonRules"
-                            v-model="cont_per_name"
-                            label="Contact person name"
-                            color="#7253CF"
-                            class="left-input"
-                            :disabled="DistrictFormData.disabled">
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="5">
-                            <v-text-field
-                            outlined
-                            dense
-                            :rules="roleRules"
-                            v-model="role"
-                            label="Role"
-                            color="#7253CF"
-                            class="right-input"
-                            :disabled="DistrictFormData.disabled"></v-text-field>
-                        </v-col>
-                        <v-col cols="5">
-                            <v-text-field
-                            outlined
-                            dense
-                            :rules="emailRules"
-                            v-model="email"
-                            label="Email"
-                            color="#7253CF" 
-                            class="left-input"
-                            :disabled="DistrictFormData.disabled">
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="5">
-                            <v-text-field
-                            outlined
-                            dense
-                            v-model="mobile"
-                            :rules="mobileRules"
-                            label="Mobile"
-                            color="#7253CF"
-                            class="right-input"
-                            :disabled="DistrictFormData.disabled">
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="5">
-                            <v-btn v-if="this.DistrictFormData.type=='add'" 
+                            <v-btn v-if="this.SchoolFormData.type=='add'" 
                              class="submit-btn" dark color="#38227A"
-                             @click="saveForm">Add district</v-btn>
-                            <v-btn v-if="this.DistrictFormData.type=='edit'" 
+                             @click="saveForm">Add school</v-btn>
+                            <v-btn v-if="this.SchoolFormData.type=='edit'" 
                             class="submit-btn-edit" dark color="#38227A">save</v-btn>
                         </v-col>
                     </v-row>
@@ -170,8 +204,8 @@
 </template>
 <script>
 export default {
-    name:"DistrictCrudForm.vue",
-    props:['DistrictFormData'],
+    name:"SchoolCrudForm.vue",
+    props:['SchoolFormData'],
     data(){
         return {
             states:[
@@ -187,7 +221,7 @@ export default {
             ],
             loading:false,
             previewImage:null,
-            district_name:'',
+            school_name:'',
             nameRules: [
                 v => !!v || 'Required',
             ],
@@ -203,6 +237,7 @@ export default {
             contactPersonRules:[
                 v => !!v || 'Required'
             ],
+            designation:'',
             role:'',
             roleRules:[
                 v => !!v || 'Required'
@@ -216,16 +251,19 @@ export default {
             mobileRules:[
                 v => !!v || "Required",
                 v => /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(v) || 'Mobile Number must be valid'
-            ]
+            ],
+            shipping_address:'',
+            lead_group:'',
+            sales_rep:[]
 
         }
     },
     methods:{
         CloseForm(){
-            this.DistrictFormData.flag=false
-            this.DistrictFormData.type=''
-            this.DistrictFormData.item=[]
-            this.DistrictFormData.disabled=false
+            this.SchoolFormData.flag=false
+            this.SchoolFormData.type=''
+            this.SchoolFormData.item=[]
+            this.SchoolFormData.disabled=false
             this.district_name='',
             this.previewImage=null,
             this.city='',
@@ -247,16 +285,16 @@ export default {
             }
         },
         editDataOnload(){
-            console.log('hello',this.DistrictFormData.item)
+            console.log('hello',this.SchoolFormData.item)
             
-            this.previewImage=this.DistrictFormData.item.url
-            this.district_name=this.DistrictFormData.item.info
-            this.city=this.DistrictFormData.item.city
-            this.state=this.DistrictFormData.item.state
-            this.cont_per_name=this.DistrictFormData.item.contact_person
-            this.role=this.DistrictFormData.item.role
-            this.email = this.DistrictFormData.item.email
-            this.mobile = this.DistrictFormData.item.mobile
+            this.previewImage=this.SchoolFormData.item.url
+            this.district_name=this.SchoolFormData.item.info
+            this.city=this.SchoolFormData.item.city
+            this.state=this.SchoolFormData.item.state
+            this.cont_per_name=this.SchoolFormData.item.contact_person
+            this.role=this.SchoolFormData.item.role
+            this.email = this.SchoolFormData.item.email
+            this.mobile = this.SchoolFormData.item.mobile
         },
         saveForm(){
             this.loading=true
@@ -266,7 +304,7 @@ export default {
         }
     },
     mounted(){
-        if (this.DistrictFormData.type=='view' || this.DistrictFormData.type=='edit'){
+        if (this.SchoolFormData.type=='view' || this.SchoolFormData.type=='edit'){
             this.editDataOnload()
         }
             
@@ -280,6 +318,9 @@ width: 180px;
 .v-input.right-input{
 width:180px;
 margin-left:10px;
+}
+.v-input.shipping-input{
+width: 400px;
 }
 .logo-preview{
 height: 100px;
@@ -332,11 +373,11 @@ margin-bottom: 25px ;
 }
 @media (min-width:0px) and (max-width:600px ) {
     .v-input.right-input{
-        margin-left:13px;
-        width:120px
+        margin-left:10px;
+        width:110px
     }
     .v-input.left-input{
-        width: 120px;
+        width: 110px;
     }
     .v-btn.submit-btn{
     margin-left:80px;

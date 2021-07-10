@@ -2,6 +2,7 @@
     <div>
         <h2>Campaign wise data table</h2>
         <v-data-table
+        hide-default-footer
         fixed-header
         :headers="headers"
         :items="campaigns"
@@ -30,7 +31,7 @@
                   <td class="text-center row-item" > 
 
 
-                    <v-chip class="mr-2">
+                    <v-chip class="chip">
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <v-icon
@@ -47,7 +48,7 @@
                     </v-tooltip>
                     </v-chip>
 
-                    <v-chip>
+                    <v-chip class="chip">
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <v-icon
@@ -67,6 +68,36 @@
                 </tr>
             </template>
         </v-data-table>
+                <v-card class="footer-card">
+            <v-card-text>
+                <v-row  no-gutters>
+                <v-col cols="12" xs="12" sm="6" md="6">
+                    <div style="display:flex">
+                    <p class="footer_p">Show</p>
+                    <p><v-autocomplete
+                    class="footer-input"
+                    :items="itemPerPage"
+                    dense
+                    color="#38227A"
+                    v-model="itemPage"
+                    ></v-autocomplete> </p> 
+                    
+                    <p style="margin-left:25px;margin-right:15px;margin-top:8px;color:black;"
+                    >1-{{itemPage}} of 2020</p>   
+                    </div>
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col cols="12" xs="12" sm="4" md="3">
+                <div><v-pagination
+                v-model="page"
+                :length="pageCount"
+                color="#EE1F51"
+                >
+                </v-pagination></div>
+                </v-col>
+                </v-row>
+            </v-card-text>
+        </v-card>
     </div>
 </template>
 
@@ -75,6 +106,10 @@ export default {
     name:"CampaignDataTable",
     data(){
         return {
+            itemPage:10,
+            page:1,
+            itemPerPage:[10,15,20,25,50,100],
+            pageCount:5,
             campaigns:[
                 {
                     campaign:{
@@ -217,5 +252,34 @@ color: #0085FF;
 }
 span.v-chip.DRAFT{
 margin-top:10px;
+}
+.chip.v-chip{
+border-radius:4px;
+margin-left: 8px;
+}
+.footer-input.v-input{
+width: 60px;
+padding: 0%;
+}
+.footer-card.v-card{
+max-height: 70px;
+}
+.footer_p{
+margin-left:25px;
+margin-right:15px;
+margin-top:8px;
+color:black
+}
+@media (min-width:0px) and (max-width:600px ){
+    
+    .footer-card.v-card{
+        max-height: 200px;
+        align-items: center;
+        text-align: center;
+        }
+    .footer_p{
+    margin-left: 45px;
+    }
+
 }
 </style>

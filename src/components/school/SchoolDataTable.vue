@@ -7,7 +7,7 @@
                 <v-text-field
                 outlined
                 dense
-                label="Search by district"
+                label="Search by School name"
                 append-icon="mdi-magnify"
                 type="text"
                 color="#38227A"
@@ -30,7 +30,7 @@
                             @click="openForm()"
                             >
                             <v-list-item-title>
-                            Add District
+                            Add School
                             </v-list-item-title>
                             </v-list-item>
                             <v-list-item
@@ -45,6 +45,16 @@
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col class="d-none d-sm-flex" cols="2">
+                     <v-btn
+                    color="#38227A"
+                    dark
+                    @click="openForm()"
+                    class="text-capitalize"
+                    >
+                    Add School
+                    </v-btn>
+                </v-col>
+                <v-col class="d-none d-sm-flex" cols="2">
                     <v-btn
                     text
                     style="border:1px solid #38227A"
@@ -52,16 +62,6 @@
                     @click="route"
                     >
                     bulk import
-                    </v-btn>
-                </v-col>
-                <v-col class="d-none d-sm-flex" cols="2">
-                    <v-btn
-                    color="#38227A"
-                    dark
-                    @click="openForm()"
-                    class="text-capitalize"
-                    >
-                    Add district
                     </v-btn>
                 </v-col>
                 
@@ -77,7 +77,6 @@
         loading-text="Loading... Please wait"
         class="elevation-1"
         mobile-breakpoint="0"
-        :sort-by="[district_info,no_schools,no_campaigns,fund,last_wizfit,sales_rep]"
         >
 
             <template v-slot:item="row" >
@@ -99,11 +98,21 @@
                     </tr>
                     
                   </td>
-                  <td class="text-center row-item" >{{row.item.no_school}}</td>
-                  <td class="text-center row-item" >{{row.item.no_campaigns}}</td>
-                  <td class="text-center row-item" >{{row.item.fund}}</td>
-                  <td class="text-center row-item" >{{row.item.last}}</td>
-                  <td class="text-center row-item" >{{row.item.saleRep}}</td>
+                  <td class="text-center row-item" >
+                        <tr>
+                            <td style="font-size:14px;">{{row.item.contact_person}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:10px;color:grey;">{{row.item.cont_person_email}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:10px;color:grey;">{{row.item.cont_person_phone}}</td>
+                            </tr>
+                  
+                  </td>
+                  <td class="text-center row-item" >{{row.item.city}}/{{row.item.state}}</td>
+                  <td class="text-center row-item" >{{row.item.lead_group}}</td>
+                  <td class="text-center row-item" >{{row.item.sales_rep}}</td>
                   <td class="text-center row-item" > 
                     
                     <tr>
@@ -208,49 +217,42 @@
                 </v-row>
             </v-card-text>
         </v-card>
-        <district-crud-form :DistrictFormData="DistrictFormData" v-if="DistrictFormData.flag"/>
+        <SchoolCrudForm :SchoolFormData="SchoolFormData" v-if="SchoolFormData.flag" />
     </div>
 </template>
 <script>
-import DistrictCrudForm from "./DistrictCrudForm.vue"
+import SchoolCrudForm from "./SchoolCrudForm"
 export default {
-    name:'DistrictManagementTable',
-    components:{DistrictCrudForm},
+    name:'SchoolDataTable',
+    components:{ SchoolCrudForm},
     data(){
         return {
 
             headers: [
                 {
-                text: "District Info",
+                text: "School Info",
                 align: "center",
-                value: "district_info",
+                value: "school_info",
                 class: "grey lighten-4"
                 },
                 {
-                text: "#Schools",
+                text: "Contact Person Info",
                 align: "center",
-                value: "no_schools",
+                value: "contact_person",
                 class: "grey lighten-4"
                 },
                 {
-                text: "#Campaigns",
+                text: "City/State",
                 align: "center",
-                value: "no_campaigns",
+                value: "city_state",
                 class: "grey lighten-4"
                 },
                 {
-                text: "Total Fund Raised",
+                text: "The lead group",
                 align: "center",
-                value: "fund",
+                value: "lead_group",
                 class: "grey lighten-4"
                 },
-                {
-                text: "LastWizfit",
-                value: "no_student",
-                align: "center",
-                class: "grey lighten-4"
-                },
-                
                 {
                 text: "salesREP",
                 value: "sales_rep",
@@ -266,7 +268,7 @@ export default {
                 },
             ],
                 loader:false,
-                DistrictFormData:{
+                SchoolFormData:{
                     flag:false,
                     loading:false,
                     disabled:false,
@@ -279,50 +281,43 @@ export default {
                 pageCount:4,
 
       dummyData:[
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png",state:'Arizona',city:'hello',
-           contact_person:"Prashant Yadav",role:"Admin",email:'prashant.yadav@codenicely.in',
-           mobile:7898123091},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
-          {info:'lousiana school district',sub_text:'hi i am sub text',no_school:35,no_campaigns:65,fund:325625,last:"26/04/2021",
-          saleRep:"Prashant Yadav",url:"log.png"},
+          {info:'Test Elementry School',sub_text:'Test elementry district',contact_person:'Prashant Yadav',
+          cont_person_phone:7898123091,cont_person_email:'prashant.yadav@codenicely.in',
+          lead_group:'test elementry',sales_rep:'prashant yadav' ,url:"log.png",state:'Arizona',city:'hello',},
+           {info:'Test Elementry School',sub_text:'Test elementry district',contact_person:'Prashant Yadav',
+          cont_person_phone:7898123091,cont_person_email:'prashant.yadav@codenicely.in',
+          lead_group:'test elementry',sales_rep:'prashant yadav' ,url:"log.png",state:'Arizona',city:'hello',},
+           {info:'Test Elementry School',sub_text:'Test elementry district',contact_person:'Prashant Yadav',
+          cont_person_phone:7898123091,cont_person_email:'prashant.yadav@codenicely.in',
+          lead_group:'test elementry',sales_rep:'prashant yadav' ,url:"log.png",state:'Arizona',city:'hello',},
+           {info:'Test Elementry School',sub_text:'Test elementry district',contact_person:'Prashant Yadav',
+          cont_person_phone:7898123091,cont_person_email:'prashant.yadav@codenicely.in',
+          lead_group:'test elementry',sales_rep:'prashant yadav' ,url:"log.png",state:'Arizona',city:'hello',},
+           {info:'Test Elementry School',sub_text:'Test elementry district',contact_person:'Prashant Yadav',
+          cont_person_phone:7898123091,cont_person_email:'prashant.yadav@codenicely.in',
+          lead_group:'test elementry',sales_rep:'prashant yadav' ,url:"log.png",state:'Arizona',city:'hello',},
+           {info:'Test Elementry School',sub_text:'Test elementry district',contact_person:'Prashant Yadav',
+          cont_person_phone:7898123091,cont_person_email:'prashant.yadav@codenicely.in',
+          lead_group:'test elementry',sales_rep:'prashant yadav' ,url:"log.png",state:'Arizona',city:'hello',},
+  
       ]
         }
     },
     methods:{
         openForm(){
-            this.DistrictFormData.flag=true
-            this.DistrictFormData.type='add'
+            this.SchoolFormData.flag=true
+            this.SchoolFormData.type='add'
         },
         editForm(item){
-            this.DistrictFormData.flag=true
-            this.DistrictFormData.type='edit'
-            this.DistrictFormData.item=item
+            this.SchoolFormData.flag=true
+            this.SchoolFormData.type='edit'
+            this.SchoolFormData.item=item
         },
         viewForm(item){
-            this.DistrictFormData.flag=true
-            this.DistrictFormData.disabled=true
-            this.DistrictFormData.item=item
-            this.DistrictFormData.type='view'
+            this.SchoolFormData.flag=true
+            this.SchoolFormData.disabled=true
+            this.SchoolFormData.item=item
+            this.SchoolFormData.type='view'
         },
         route(){
             this.$router.push('/upload')
