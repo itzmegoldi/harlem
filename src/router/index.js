@@ -43,6 +43,22 @@ const routes = [
     component: () => import(/* webpackChunkName: "upload" */ '../views/bulkupload.vue')
   },
   {
+    path: '/campaign',
+    name: 'campaign',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "campaign" */ '../views/campaign/campaign.vue')
+  },
+  {
+    path: '/start-campaign/:slug',
+    name: 'start-campaign',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "start-campaign" */ '../views/campaign/CampaignFormView.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

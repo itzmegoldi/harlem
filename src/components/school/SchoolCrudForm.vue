@@ -4,7 +4,7 @@
         persistent
         v-model="SchoolFormData.flag"
         max-width="500px"
-        max-height="800px"
+        max-height="700px"
         >
         <div class="text-center" v-if="loading" style="min-height:500px;">
             <v-progress-circular
@@ -15,27 +15,26 @@
             indeterminate
             ></v-progress-circular>
         </div>
-
-            <v-card style="background-color:#F2F2F2;" v-if="!loading">
-            <v-card-title
-            class="headline darken-1"
-            style="background-color:#7253CF;color:white;height:100px"
-            
-            >
-            <div class="d-none d-sm-flex">
-            <img src="basketball.png" height="85" width="100">
-            </div> <div v-if="SchoolFormData.type == 'add'" 
-            style="margin-top:-10px;margin-left:20px">Add new school</div>
-            <div v-if="SchoolFormData.type=='edit'" 
-            style="margin-top:-10px;margin-left:20px">Edit school</div>
-            <div v-if="SchoolFormData.type=='view'" 
-            style="margin-top:-10px;margin-left:20px">School details</div>
-            <v-spacer></v-spacer>
-            <v-icon text color="white" @click="CloseForm"  
-            style="cursor:pointer;margin-top:-80px;margin-right:-15px;"
-                >mdi-close
-            </v-icon>
+        <v-card v-if="!loading">
+        
+         <v-card-title
+                class="headline darken-1"
+                >
+                <div class="d-none d-sm-flex">
+                <img src="basketball.png" height="100" width="100" style="position:relative;bottom:16px">
+                </div> <div v-if="SchoolFormData.type == 'add'" 
+                style="margin-top:-10px;margin-left:20px;">Add new school</div>
+                <div v-if="SchoolFormData.type=='edit'" 
+                style="margin-top:-10px;margin-left:20px">Edit school</div>
+                <div v-if="SchoolFormData.type=='view'" 
+                style="margin-top:-10px;margin-left:20px">School details</div>
+                <v-spacer></v-spacer>
+                <v-icon text color="white" @click="CloseForm"  
+                style="cursor:pointer;margin-top:-80px;margin-right:-15px;"
+                    >mdi-close
+                </v-icon>
             </v-card-title>
+            <v-card-text></v-card-text>
             <v-form>
                 <v-card-text >
                     <v-row class="logo-row" style="margin-top:20px">
@@ -90,6 +89,7 @@
                             label="Contact person name"
                             color="#7253CF"
                             class="left-input"
+                            :rules="nameRules"
                             :disabled="SchoolFormData.disabled">
                             </v-text-field>
                         </v-col>
@@ -101,6 +101,7 @@
                             label="Designation"
                             color="#7253CF"
                             class="right-input"
+                            :rules="nameRules"
                             :disabled="SchoolFormData.disabled"></v-text-field>
                         </v-col>      
                         <v-col cols="5">
@@ -160,6 +161,7 @@
                             label="Shipping Address"
                             color="#7253CF"
                             class="shipping-input"
+                            row-height="10"
                             :disabled="SchoolFormData.disabled">
                             </v-textarea>
                         </v-col>
@@ -172,6 +174,7 @@
                             label="Lead Group"
                             color="#7253CF"
                             class="left-input"
+                            :rules="nameRules"
                             :disabled="SchoolFormData.disabled">
                             </v-text-field>
                         </v-col>
@@ -180,24 +183,35 @@
                             outlined
                             dense
                         
-                            v-model="sales_rep"
-                            
+                            :items="sales_rep"
+                            v-model="sales_Rep"
                             label="sales REP"
                             color="#7253CF"
                             class="right-input"
+                            :rules="nameRules"
                             :disabled="SchoolFormData.disabled">
                             </v-autocomplete >
                         </v-col>
-                        <v-col cols="5">
-                            <v-btn v-if="this.SchoolFormData.type=='add'" 
+                    </v-row>
+                </v-card-text>
+                
+            </v-form>
+            <v-card-actions>
+                <div class="d-flex d-sm-none">
+                 <v-btn v-if="this.SchoolFormData.type=='add'" 
                              class="submit-btn" dark color="#38227A"
                              @click="saveForm">Add school</v-btn>
                             <v-btn v-if="this.SchoolFormData.type=='edit'" 
                             class="submit-btn-edit" dark color="#38227A">save</v-btn>
-                        </v-col>
-                    </v-row>
-                </v-card-text>
-            </v-form>
+                </div>
+                    <v-footer fixed>
+                        <v-btn v-if="this.SchoolFormData.type=='add'" 
+                             class="submit-btn" dark color="#38227A"
+                             @click="saveForm">Add school</v-btn>
+                            <v-btn v-if="this.SchoolFormData.type=='edit'" 
+                            class="submit-btn-edit" dark color="#38227A">save</v-btn>
+                    </v-footer>
+            </v-card-actions>
             </v-card>
         </v-dialog>
     </v-row>
@@ -254,7 +268,8 @@ export default {
             ],
             shipping_address:'',
             lead_group:'',
-            sales_rep:[]
+            sales_rep:['prashant yadav'],
+            sales_Rep:''
 
         }
     },
@@ -364,27 +379,52 @@ max-width: 180px;
 max-height: 80px;
 }
 .v-btn.submit-btn{
-margin-left:150px;
-margin-bottom: 25px ;
+margin-left:285px;
 }
 .v-btn.submit-btn-edit{
-margin-left:215px;
-margin-bottom: 25px ;
+margin-left:345px;
 }
+.v-sheet.theme--dark.v-toolbar{
+    position:fixed;
+    width:500px;
+}
+.v-form{
+    margin-top:80px
+}
+.v-card__title{
+ background-color:#7253CF;color:white;height:100px;width:500px;position:fixed
+}
+.v-footer{
+    width:500px;
+    margin-left:426px;
+}
+
 @media (min-width:0px) and (max-width:600px ) {
     .v-input.right-input{
         margin-left:10px;
-        width:110px
+        width:125px
     }
     .v-input.left-input{
-        width: 110px;
+        width: 125px;
     }
     .v-btn.submit-btn{
-    margin-left:80px;
+    margin-left:180px;
     width: 120px;
     }
     .v-btn.submit-btn-edit{
     margin-left: 120px;
     }
+    .v-card__title{
+        position: static;
+        width:370px;
+    }
+    .v-form{
+        margin-top:0px
+    }
+    .v-footer.v-sheet.theme--light.v-footer--fixed{
+        position:absolute;
+        
+    }
+
 }
 </style>

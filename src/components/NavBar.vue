@@ -113,7 +113,7 @@ export default {
         { title: "School Management", icon: "mdi-school" ,heading:"School Management",
         select:"School",url:'/school' },
         { title: "Campaign Management", icon: "mdi-bullhorn" ,heading:"Campaign Management",
-        select:"Campaign"},
+        select:"Campaign", url:'/campaign'},
         { title: "Game Management", icon: "mdi-basketball" ,heading:"Game Management" ,
         select:"Game"},
         { title: "Team Management", icon: "mdi-account-group" ,heading:"Team Management" ,
@@ -130,7 +130,7 @@ export default {
       ],
       drawer:false,
       barTitle:"Internal Dashboard",
-      selected:"Dashboard"
+      selected:"Dashboard",
     };
   },
   methods:{
@@ -145,6 +145,12 @@ export default {
           this.$router.push(url)
 
       }
+  },
+  updated(){
+    console.log('router tracking',this.$route.params['slug'])
+    if (this.$route.params['slug'] ||String == 'start'){
+      this.barTitle = "Start a new campaign"
+    }
   }
 };
 </script>

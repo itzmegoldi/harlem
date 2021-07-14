@@ -39,7 +39,7 @@
                             v-bind="attrs"
                             v-on="on"
                             class="icons"
-                            color="black"
+                            color="#6B6B6B"
                             >
                             mdi-eye
                             </v-icon>
@@ -56,7 +56,7 @@
                             v-bind="attrs"
                             v-on="on"
                             class="icons"
-                            color="black"
+                            color="#6B6B6B"
                             >
                             mdi-pencil
                             </v-icon>
