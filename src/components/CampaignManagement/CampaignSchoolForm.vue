@@ -360,7 +360,8 @@ export default {
       event_end_date:"",
       CampaignDialogData:{
         flag:false,
-        campaign_type:''
+        campaign_type:'',
+        values:[]
       },
 
       dummy_url: [
@@ -380,6 +381,22 @@ export default {
         console.log('ready to publish')
       }
       else{
+        this.CampaignDialogData.values=[]
+        let validation={
+          school : this.school,
+          host_name : this.host_name,
+          host_email : this.host_email,
+          teacher_incentive : this.teacher_incentive,
+          student_incentive :this.student_incentive,
+          graduation_date :this.graduation_date
+        }
+        for (const [key,value] of Object.entries(validation)){
+          console.log(`${key}:${value}`)
+          if(value){
+            this.CampaignDialogData.values.push(key)
+          }
+        }
+        console.log(this.CampaignDialogData.values )
         this.CampaignDialogData.flag=true
       }
     }

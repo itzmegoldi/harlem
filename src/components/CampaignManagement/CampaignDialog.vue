@@ -28,23 +28,28 @@
                 >Basic Information</p></v-row>
                 <v-row>
                 <v-col cols="6">
-                    <v-icon class="ml-1" color="red">mdi-close</v-icon>
+                    <v-icon v-if="CampaignDialogData.campaign_type" calss="ml-1" color="green">mdi-check-circle</v-icon>
+                    <v-icon v-else calss="ml-1" color="red">mdi-close</v-icon>
                     <p style="float:right;margin-right:80px;color:black">Campaign Type</p>
                 </v-col>
                 <v-col v-if="CampaignDialogData.campaign_type=='district'" cols="6">
-                    <v-icon  class="ml-1" color="red">mdi-close</v-icon>
+                    <v-icon v-if="CampaignDialogData.values.includes('district')" class="ml-1" color="green">mdi-check-circle</v-icon>
+                    <v-icon v-else  class="ml-1" color="red">mdi-close</v-icon>
                     <p style="float:right;margin-right:80px;color:black">Select District</p>
                 </v-col>
                 <v-col v-if="CampaignDialogData.campaign_type=='school'"  cols="6">
-                    <v-icon class="ml-1" color="red">mdi-close</v-icon>
+                    <v-icon v-if="CampaignDialogData.values.includes('school')" class="ml-1" color="green">mdi-check-circle</v-icon>
+                    <v-icon v-else class="ml-1" color="red">mdi-close</v-icon>
                     <p style="float:right;margin-right:80px;color:black">Select school</p>
                 </v-col>
                 <v-col  cols="6">
-                    <v-icon class="ml-1" color="red">mdi-close</v-icon>
+                    <v-icon v-if="CampaignDialogData.values.includes('host_name')" class="ml-1" color="green">mdi-check-circle</v-icon>
+                    <v-icon v-else class="ml-1" color="red">mdi-close</v-icon>
                     <p style="float:right;margin-right:100px;color:black">Host Name</p>
                 </v-col>
                 <v-col cols="6">
-                    <v-icon class="ml-1" color="red">mdi-close</v-icon>
+                    <v-icon v-if="CampaignDialogData.values.includes('host_email')" class="ml-1" color="green">mdi-check-circle</v-icon>
+                    <v-icon v-else class="ml-1" color="red">mdi-close</v-icon>
                     <p style="float:right;margin-right:100px;color:black">Host Email</p>
                 </v-col>
                 </v-row>
@@ -55,11 +60,13 @@
                 </v-row>
                 <v-row>
                 <v-col cols="6">
-                    <v-icon class="ml-1" color="red">mdi-close</v-icon>
+                    <v-icon v-if="CampaignDialogData.values.includes('teacher_incentive')" class="ml-1" color="green">mdi-check-circle</v-icon>
+                    <v-icon v-else class="ml-1" color="red">mdi-close</v-icon>
                     <p style="float:right;margin-right:60px;color:black">Teacher Incentives</p>
                 </v-col>
                 <v-col  cols="6">
-                    <v-icon class="ml-1" color="red">mdi-close</v-icon>
+                    <v-icon v-if="CampaignDialogData.values.includes('student_incentive')" class="ml-1" color="green">mdi-check-circle</v-icon>
+                    <v-icon v-else class="ml-1" color="red">mdi-close</v-icon>
                     <p style="float:right;margin-right:60px;color:black">Student Incentives</p>
                 </v-col>
                 </v-row>
@@ -70,7 +77,8 @@
                 </v-row>
                 <v-row>
                 <v-col cols="6">
-                    <v-icon class="ml-1" color="red">mdi-close</v-icon>
+                    <v-icon v-if="CampaignDialogData.values.includes('graduation_date')" class="ml-1" color="green">mdi-check-circle</v-icon>
+                    <v-icon v-else class="ml-1" color="red">mdi-close</v-icon>
                     <p style="float:right;margin-right:5px;color:black">Graduation Celebration Day</p>
                 </v-col>
                 

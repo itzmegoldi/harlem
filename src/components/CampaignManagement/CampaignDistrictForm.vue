@@ -396,7 +396,8 @@ export default {
       school_item:['test elementry 1','test elementry 2','test elementry 3',],
       CampaignDialogData:{
           flag:false,
-          campaign_type:''
+          campaign_type:'',
+          values:[]
       },
 
       dummy_url: [
@@ -409,13 +410,28 @@ export default {
     }
     },
     methods:{
-        submitForm(value){
+      submitForm(value){
       this.CampaignDialogData.campaign_type=value
       if(this.district && this.host_name && this.host_email && this.teacher_incentive && this.student_incentive && this.graduation_date)
       {
         console.log('ready to publish')
       }
       else{
+        this.values=[]
+        let validation={
+          district : this.district,
+          host_name : this.host_name,
+          host_email : this.host_email,
+          teacher_incentive : this.teacher_incentive,
+          student_incentive :this.student_incentive,
+          graduation_date :this.graduation_date
+        }
+        for (const [key,value] of Object.entries(validation)){
+          console.log(`${key}:${value}`)
+          if(value){
+            this.CampaignDialogData.values.push(key)
+          }
+        }
         this.CampaignDialogData.flag=true
       }
     }
