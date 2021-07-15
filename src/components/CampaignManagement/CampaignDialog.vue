@@ -9,15 +9,16 @@
             <v-card style="background-color:#F2F2F2;">
             <v-card-title
             class="headline darken-1"
-            style="background-color:#E7E5ED;color:black;height:100px"
+            style="background-color:#0D47A1;color:white;height:130px;"
             
             >
+            <v-icon large color="yellow">mdi-alert</v-icon>
             <div 
-            style="margin-top:10px;margin-left:10px;width:415px;">Please provide below details <br> to 
-             publish this campaign</div>
+            style=";margin-left:30px;width:300px;">Please provide below <br> details to 
+             publish  the <br>campaign</div>
             <v-spacer></v-spacer>
-            <v-icon text color="black" @click="CloseForm"  
-            style="cursor:pointer;margin-right:0px;"
+            <v-icon text color="white" @click="CloseForm"  
+            style="cursor:pointer;margin-right:0px;float:right"
                 >mdi-close
             </v-icon>
             </v-card-title><br><br>
